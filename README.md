@@ -24,7 +24,21 @@ To underline which filters that should be used for the study, the user can slect
 ## Image Processing 
 
 ### Main Script
-The main MATLAB script served as the entry point for the image processing workflow. 
+The main MATLAB script serves as the entry point for the image-processing workflow. It begins by prompting the user to select two input images, which are subsequently used for image alignment and sensor fusion. The corresponding filenames are stored to distinguish between the images and to automatically identify which sensor acquired each image. Based on the filename, the script assigns the appropriate sensor parameters, including the sensor pixel size and focal length.
+
+Once both images have been loaded and identified, the script calls the Align function. This function spatially aligns the images and returns two cropped images, cropped1 and cropped2, containing only the overlapping region shared by both images. If necessary, one of the images is resized so that both have identical dimensions before fusion.
+
+1. Discrete Wavelet Tranfrom Fusion (DWT)
+2. Laplacian Pyramid Fusion (LP)
+3. Principal Component Analysis fusion (PCA)
+
+For DWT fusion, the user can also select how the approximation and detail coefficients should be combined. The available coefficient rules are max, mean, and min.
+
+For Laplacian Pyramid fusion, the user can select the fusion rule used to combine the image information. The available rules are also max, mean, and min.
+
+For PCA fusion, no additional user input is required.
+
+After the fusion has been completed, the script calls the Intensity Profile function to generate an intensity profile of the fused images. Finally, the user may repeat the fusion process using the same aligned images if wanted to.
 
 ### Intensity Profile
 The Intensity profile function extracts a 1D intensity distrobution plot from a user-defined region of interest. The purpose of the function is to quantitaviley evaluate how well inherent target features can be resolved in each image. 
